@@ -16,6 +16,8 @@ char puzzArray[MAX_SIZE];
 int character;
 int charCount;
 int errorFlag;
+int i;
+
 
 int main()
 {
@@ -24,7 +26,6 @@ int main()
     putchar(character);
     if (character == '\n')
     {
-      printf("The charCount is %d\n", charCount);
       if (errorFlag == 1 || charCount  != MAX_SIZE)
       {
         printf("Error\n\n");
@@ -33,6 +34,15 @@ int main()
       {
         printf("\n");
       }
+      for (i = 0; i < MAX_SIZE; ++i)
+      {
+        if (i % WIDTH == 0)
+        {
+          printf("\n");
+        }
+        printf(" %c", puzzArray[i]);
+      }
+      printf("\n\n\n");
       errorFlag = 0;
       charCount = -1;
     }
