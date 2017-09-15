@@ -4,7 +4,7 @@
  *This file is to read sudoku input from the standard input stream, echo the
  *input, verify that it is valid, and calculate and print out a solution if it
  *exist or state "no solution" if it does not exist.
- *****************************************/
+ *****************************************************************************/
 
 #include <stdio.h>
 #include <ctype.h>
