@@ -12,50 +12,91 @@
 #define MAX_SIZE 81
 #define WIDTH 9
 
+int inputTest(char puzzArray[]);
+void cleanArray(char puzzArray[]);
+
 char puzzArray[MAX_SIZE];
-int character;
+int puzzChar;
 int charCount;
 int errorFlag;
+int dupCount;
 int i;
+int j;
+int k;
 
 
 int main()
 {
-  while((character = getchar()) != EOF)
-  {
-    putchar(character);
-    if (character == '\n')
+    while((puzzChar = getchar()) != EOF)
     {
-      if (errorFlag == 1 || charCount  != MAX_SIZE)
-      {
-        printf("Error\n\n");
-      }
-      else
-      {
-        printf("\n");
-      }
-      for (i = 0; i < MAX_SIZE; ++i)
-      {
-        if (i % WIDTH == 0)
+        putchar(puzzChar);
+        if (puzzChar == '\n')
         {
-          printf("\n");
+            inputTest(puzzArray);
+            printf("Error flag is %d.\n", errorFlag);
+            if (errorFlag == 1 || charCount  != MAX_SIZE)
+            {
+                printf("Error\n\n");
+            }
+            else
+            {
+                printf("\n");
+            }
+            for (i = 0; i < MAX_SIZE; ++i)
+            {
+                if (i % WIDTH == 0)
+                {
+                    printf("\n");
+                }
+                printf(" %c", puzzArray[i]);
+            }
+            cleanArray(puzzArray);
+            printf("\n\n\n");
+            errorFlag = 0;
+            charCount = -1;
         }
-        printf(" %c", puzzArray[i]);
-      }
-      printf("\n\n\n");
-      errorFlag = 0;
-      charCount = -1;
+        if (charCount < MAX_SIZE)
+        {
+            puzzArray[charCount] = (char) puzzChar;
+        }
+        if (!(isdigit(puzzChar) || puzzChar == '.'))
+        {
+            errorFlag = 1;
+        }
+        errorFlag = 0;
+        charCount++;
     }
-    if (charCount < MAX_SIZE)
+    return 0;
+}
+int inputTest(char puzzArray[])
+{
+    for (i = 0; i < 80; i += 9)
     {
-      puzzArray[charCount] = (char) character;
+        for (j = 0; j < 8; ++j)
+            dupCount = 0;
+        {
+            for (k = 0; i < 10; ++k)
+            {
+                if (puzzArray[i + j] == (char) k)
+                {
+                    printf("%d %d %c %c\n", i, j, puzzArray[i + j], k);
+                    dupCount++;
+                    if (dupCount > 1)
+                    {
+                        errorFlag = 1;
+                        printf("%d %d %c %c\n",i , j, puzzArray[i + j], k);
+                        return errorFlag;
+                    }
+                }
+            }
+        }
     }
-    if (!(isdigit(character) || character == '.'))
+    return errorFlag;
+}
+void cleanArray(char puzzArray[])
+{
+    for (i = 0; i < MAX_SIZE; ++i)
     {
-      errorFlag = 1;
+        puzzArray[i] = ' ';
     }
-    errorFlag = 0;
-    charCount++;
-  }
-  return 0;
 }
